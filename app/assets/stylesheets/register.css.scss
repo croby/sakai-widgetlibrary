@@ -70,7 +70,7 @@
         display:block;
     }
 
-    .register_column1, .register_column2, .register_column3 {
+    .register_column1, .register_column2 {
         label {
             font-size:12px;
             color:#666;
@@ -80,27 +80,31 @@
         }
     }
 
-    .register_column2, .register_column3 {
-        margin-left:25px;
+    .register_column1, .register_column2 {
         width:340px;
         float:left;
     }
 
-    .register_column1 {
-        width:110px;
-        min-height:20px;
+    .register_image {
+        width:100%;
         float:left;
-        a.wl-button{
-            margin-top: 5px;
-            color:#2683BC;
-            width: 85px;
+        margin-bottom:25px;
+        img, input {
+            float:left;
         }
         img {
             border:1px solid #dbdada;
         }
+        input {
+            margin-left:25px;
+        }
     }
 
-    .register_column2 {
+    .register_column1 {
+        width:340px;
+        min-height:20px;
+        float:left;
+        margin-bottom:25px;
         #register_basic {
             height:70px;
             margin-bottom:7px;
@@ -113,13 +117,17 @@
         }
     }
 
-    .register_column3 {
+    .register_column2 {
+        margin-left:25px;
         div {
             float:left;
             width:150px;
         }
         #register_details_labels {
             width:100px;
+            label {
+                margin-bottom:45px;
+            }
         }
         label, input {
             display:block;
@@ -129,7 +137,6 @@
             width:230px;
         }
     }
-
 
     #check_username_result {
         float: left;
@@ -145,15 +152,15 @@
 
     #user_recaptcha_container {
         float:left;
+        margin-left:200px;
         #user_recaptcha_error {
-            margin-left:25px;
             width:433px;
         }
         #user_recaptcha {
             width:441px;
             height:108px;
             float:left;
-            margin:0 20px 0 25px;
+            margin:0 20px 0 0;
             border: 1px solid #D4D4D4;
             .recaptchatable {
                 border:0 !important;
@@ -169,6 +176,7 @@
     .error {
         border:1px solid #fbb800 !important;
     }
+
     label {
         &.error {
             margin-top:26px;
@@ -189,6 +197,7 @@
             width:443px;
         }
     }
+
     #create_account_button {
         margin-top:65px;
     }

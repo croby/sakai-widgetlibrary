@@ -25,7 +25,8 @@ SakaiWidgetlibrary::Application.routes.draw do
   match '/developer/widgetdesignandstyle/interactionmodels' => 'developer#interactionmodels'
   match '/developer/:developer_name' => 'developerdetails#index', :as => :developer_page
   match '/mywidgets' => 'mywidgets#index', :as => :mywidgets
-  match 'submit' => 'submit#index'
+  get '/submit' => 'submit#index'
+  post '/submit' => 'submit#create', :as => :create_widget
   match '/zippedwidget' => 'widget_generator#zippedwidget'
   root :to => "home#index"
 

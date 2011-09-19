@@ -38,19 +38,19 @@
             <hr class="wl-split-line full-line wl-push register_form_splitter"/>
 
             <h1>Some information about you</h1>
-            <div class="register_column1">
+            <div class="register_image">
                 <h2>Image</h2>
                 <%= image_tag "register_default_image.jpg", :alt => "User image" %>
-                <%= f.file_field :avatar, :class => "wl-button wl-header-button" %>
+                <%= f.file_field :avatar %>
             </div>
 
-            <div class="register_column2">
+            <div class="register_column1">
                 <h2>Introductory text</h2>
                 <%= f.text_area :info, :placeholder => "Enter some basic intro text...", :id => "register_basic" %>
                 <%= f.text_area :summary, :placeholder => "Enter a quick summary of yourself...", :id => "register_summary" %>
             </div>
 
-            <div class="register_column3">
+            <div class="register_column2">
                 <h2>Details</h2>
                 <div id="register_details_labels">
                     <%= f.label :location %>
@@ -61,13 +61,12 @@
                     <%= f.select :location, country_options %>
                     <%= f.text_field :occupation, :id => "occupation", :placeholder => "(Student/Developer/...)" %>
                     <div id="user_homepage_error" class="error_msg" style="display:none"></div>
-                    <%= f.text_field :homepage, :id => "homepage", :placeholder => "http://www.example.org"  %>
+                    <%= f.text_field :homepage, :id => "homepage", :placeholder => "http://www.example.org", :type => "url"  %>
                 </div>
             </div>
 
             <hr class="wl-push wl-hidden"/>
             <hr class="wl-split-line full-line wl-push register_form_splitter"/>
-            <div class="register_column1"></div>
             <div id="user_recaptcha_container">
                 <div id="user_recaptcha_error" class="error_msg" style="display:none"></div>
                 <div id="user_recaptcha"><%= recaptcha_tags :display => {:theme => "clean"} %></div>

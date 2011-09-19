@@ -5,8 +5,12 @@ class Widget < ActiveRecord::Base
   belongs_to :state
   has_many :ratings
   has_many :screenshots
+  has_many :screenshots, :dependent => :destroy
+  accepts_nested_attributes_for :screenshots, :allow_destroy => true
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :languages
+
+  attr_accessible :title, :description, :features, :screenshots_attributes, :code, :widget_repo, :widget_backend_repo, :icon, :category_ids, :language_ids
 
   # Validations
   validates_attachment_presence :icon

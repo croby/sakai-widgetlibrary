@@ -66,7 +66,7 @@
             }
         }
     }
-    .register_column2 {
+    .register_column1 {
         #submit_widgetname {
             margin-bottom:7px;
         }
@@ -74,7 +74,7 @@
             margin-bottom:12px;
         }
     }
-    .register_column3 {
+    .register_column2 {
         #submitdetails_input {
             width: 258px;
         }
@@ -82,23 +82,19 @@
             line-height: 27px;
         }
         select {
-            width:150px;
             float:left;
-        }
-        input {
-            width:200px;
         }
         .wl-button {
             float: left;
             margin-left: 10px;
         }
     }
-    .register_column1, .register_column2, .register_column3 {
+    .register_column1, .register_column2 {
         h2 {
             margin-bottom:9px;
         }
     }
-    .register_column2, .register_column3 {
+    .register_column2 {
         width: 358px;
     }
     #submit_screenshot_container {
@@ -139,7 +135,6 @@
     #submit_screenshot_uploadfields {
         float: left;
         width: 310px;
-        margin-left:25px;
         .submit_descriptive_text {
             margin-top: 12px;
         }
