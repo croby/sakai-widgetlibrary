@@ -51,24 +51,45 @@ namespace :db do
     $widget_titles.push(title.join(' '))
     $widget_urls.push(url_title)
     Widget.populate 1 do |widget|
-      widget.title          = title.join(' ')
-      widget.url_title      = url_title
-      widget.description    = Faker::Lorem.sentence(rand(50) + 20)
-      widget.features       = Faker::Lorem.words(rand(20) + 1).collect!{|t| t.capitalize }.join(' ')
-      widget.released_on    = released_on
       ratings = []
-      num_ratings.times do
-        ratings.push(create_rating(widget.id, released_on))
-      end
       total_stars = 0
-      ratings.each do |rating|
+      num_ratings.times do
+        rating = create_rating(widget.id, released_on)
+        ratings.push(rating)
         total_stars += rating.stars
       end
+
+      widget.url_title      = url_title
       widget.average_rating = total_stars.to_f / num_ratings.to_f
-      widget.state_id       = state
       widget.user_id        = userid
-      widget.created_at     = created
-      widget.updated_at     = created
+
+      activeVersion = false
+      count = 1
+      WidgetVersion.populate (1+rand(4)) do |version|
+        version.title          = title.join(' ')
+        version.description    = Faker::Lorem.sentence(rand(50) + 20)
+        version.features       = Faker::Lorem.words(rand(20) + 1).collect!{|t| t.capitalize }.join(' ')
+        version.released_on    = released_on
+        version.state_id       = state
+        version.created_at     = created
+        version.updated_at     = created
+        version.widget_id      = widget.id
+        if version.state_id.eql?(State.accepted)
+          activeVersion        = version
+        end
+        version.version_number = count
+        version.version_number_title = "#{count}.0"
+        count += 1
+        ver = version
+      end
+
+      if activeVersion
+        widget.widget_version_id = activeVersion.id
+        widget.active = true
+      else
+        widget.active = false
+      end
+
       ret = widget
     end
 
@@ -79,36 +100,44 @@ namespace :db do
     num_categories = Category.count
     num_languages = Language.count
 
-    Widget.all.each do |widget|
+    WidgetVersion.find_each do |version|
       icon = File.open(Dir.glob(File.join(Rails.root, 'test/sampledata/images', "#{1+rand(10)}.png")).sample)
-      widget.icon = icon
+      version.icon = icon
       icon.close
 
       code = File.open(Dir.glob(File.join(Rails.root, 'test/sampledata/zip', '*')).sample)
-      widget.code = code
+      version.code = code
       code.close
 
       category_ids = []
       rand(5).times do
-        category_ids.push( rand(num_categories) + 1 )
+        cat_id = rand(num_categories) + 1
+        while category_ids.include?(cat_id)
+          cat_id = rand(num_categories) + 1
+        end
+        category_ids.push( cat_id )
       end
-      widget.category_ids = category_ids
+      version.category_ids = category_ids
 
       language_ids = []
       rand(4).times do
-        language_ids.push( rand(num_languages) + 1 )
+        lang_id = rand(num_languages) + 1
+        while language_ids.include?(lang_id)
+          lang_id = rand(num_languages) + 1
+        end
+        language_ids.push( lang_id )
       end
-      widget.language_ids = language_ids
+      version.language_ids = language_ids
 
       rand(4).times do
         screenshot = Screenshot.new
         image = File.open(Dir.glob(File.join(Rails.root, 'test/sampledata/screenshots', "#{1+rand(9)}.png")).sample)
         screenshot.image = image
-        screenshot.widget_id = widget.id
+        screenshot.widget_version_id = version.id
         screenshot.save!
         image.close
       end
-      widget.save!
+      version.save!
     end
   end
 
@@ -175,7 +204,7 @@ namespace :db do
   end
 
   def give_users_avatars
-    User.all.each do |user|
+    User.find_each do |user|
       avatar = File.open(Dir.glob(File.join(Rails.root, 'test/sampledata/images', "#{1+rand(10)}.png")).sample)
       user.avatar = avatar
       user.save!

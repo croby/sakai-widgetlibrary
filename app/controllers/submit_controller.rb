@@ -1,18 +1,28 @@
 class SubmitController < ApplicationController
   def index
     @widget = Widget.new
-    3.times { @widget.screenshots.build }
+    @widget.widget_version = WidgetVersion.new
+    3.times { @widget.widget_version.screenshots.build }
   end
 
   def create
-    @widget = Widget.new(params[:widget])
+    @widget = Widget.new
     @widget[:user_id] = current_user[:id]
-    @widget[:state_id] = State.where(:title => "pending").first.id
-    @widget[:url_title] = @widget.title.split(" ").collect!{|t| t.downcase}.join("-")
+    @widget[:url_title] = params[:widget][:title].split(" ").collect!{|t| t.downcase}.join("-")
+    @widget[:active] = false
+
+    version = WidgetVersion.new(params[:widget])
+    version[:state_id] = State.where(:title => "pending").first.id
+    version[:widget_id] = @widget.id
+    version.save
+
+    @widget[:widget_version_id] = version.id
+    @widget.save
+
     respond_to do |format|
-      @widget.save
       format.js
     end
+
   end
 
   def edit

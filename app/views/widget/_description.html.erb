@@ -1,4 +1,6 @@
 <div id="widget_description_container">
+  <% logger.debug "IN VIEW" %>
+  <% logger.debug @widget.inspect %>
   <% if can_view_admin_area? && @widget.state.title.eql?("pending") %>
     <%= render :partial => "admin_actions" %>
   <% end %>
@@ -35,7 +37,7 @@
           <li><span>Categories:</span>
             <ul>
               <% @widget.categories.each do |category| %>
-                <li><%= link_to category.title, category_path({:category_title => category.title}), :class => "wl-regular-link" %></li>
+                <li><%= link_to category.title, category_path({:category_title => category.url_title}), :class => "wl-regular-link" %></li>
               <% end %>
             </ul>
           </li>
@@ -51,7 +53,7 @@
               </ul>
           </li>
           <% end %>
-          <% if @widget.state.title === "accepted" %>
+          <% if @widget.released_on %>
             <li><span>Released:</span><span><%= @widget.released_on.strftime("%B %e, %Y") %></span></li>
           <% end %>
       </ul>

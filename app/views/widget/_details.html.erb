@@ -39,43 +39,28 @@
         <div id="widgetdetails_versions" class="widgetdetails_tabcontent_content" style="display:none;">
             <h1>Versions</h1>
             <hr class="wl-split-line" id="widgetdetails_uploadedversions_headerline"/>
+            <% @versions.each do |version| %>
+                <% if version.languages.size > 0 %>
+                  <div class="widgetdetails_uploadedversions_versionlanguage">
+                    <% 
+                      languages = []
+                      version.languages.each do |lang|
+                        languages.push(lang.title)
+                      end
+                    %>
+                      <p>Languages:</p>
+                      <p><%= languages.join(", ") %></p>
+                  </div>
+                <% end %>
+                <div class="widgetdetails_uploadedversions_versiondescription">
+                    <a href="#" class="wl-regular-link wl-bold"><%= version.title %> v<%= version.version_number %></a> <span class="widgetdetails_uploadeversions_dateuuploaded"> - released <%= version.released_on.strftime("%B %d, %Y") %></span>
+                    <p class="widgetdetails_uploadedversions_mainfeatures">Main features:</p>
+                    <p><%= version.features %></p>
+                </div>
 
-            <div class="widgetdetails_uploadedversions_versionlanguage">
-                <p>Languages:</p>
-                <p>English, French (Fully translated)</p>
-            </div>
+                <hr class="wl-split-line"/>
+            <% end %>
 
-            <div class="widgetdetails_uploadedversions_versiondescription">
-                <a href="#" class="wl-regular-link wl-bold">Activity Plus v3.0</a> <span class="widgetdetails_uploadeversions_dateuuploaded"> - uploaded 10.07.2011</span>
-                <p class="widgetdetails_uploadedversions_mainfeatures">Main feautures:</p>
-                <p>Donec sed odio dui. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-            </div>
-
-            <hr class="wl-split-line"/>
-
-            <div class="widgetdetails_uploadedversions_versionlanguage">
-                <p>Languages:</p>
-                <p>English, French (Partially translated)</p>
-            </div>
-
-            <div class="widgetdetails_uploadedversions_versiondescription">
-                <a href="#" class="wl-regular-link wl-bold">Activity Plus v2.0</a> <span class="widgetdetails_uploadeversions_dateuuploaded"> - uploaded 24.06.2011</span>
-                <p class="widgetdetails_uploadedversions_mainfeatures">Main feautures:</p>
-                <p>Donec sed odio dui. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-            </div>
-
-            <hr class="wl-split-line"/>
-
-            <div class="widgetdetails_uploadedversions_versionlanguage">
-                <p>Languages:</p>
-                <p>English</p>
-            </div>
-
-            <div class="widgetdetails_uploadedversions_versiondescription">
-                <a href="#" class="wl-regular-link wl-bold">Activity Plus v1.0</a> <span class="widgetdetails_uploadeversions_dateuuploaded"> - uploaded 24.12.2010</span>
-                <p class="widgetdetails_uploadedversions_mainfeatures">Main feautures:</p>
-                <p>Donec sed odio dui. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-            </div>
         </div>
     </div>
     <hr class="wl-push wl-hidden">
