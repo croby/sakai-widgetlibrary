@@ -9,7 +9,6 @@ class SubmitController < ApplicationController
     @widget = Widget.new
     @widget[:user_id] = current_user[:id]
     @widget[:url_title] = params[:version][:title].split(" ").collect{|t| t.downcase}.join("-")
-    @widget[:active] = false
 
     @version = Version.new(params[:version])
     @version[:state_id] = State.pending

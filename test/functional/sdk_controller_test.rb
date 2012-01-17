@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DeveloperdetailsControllerTest < ActionController::TestCase
+class SdkControllerTest < ActionController::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true
